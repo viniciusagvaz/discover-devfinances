@@ -1,10 +1,14 @@
-const modalOverlay = document.querySelector(".modal-overlay")
-
 const Modal = {
    open() {
-      modalOverlay.classList.add('active')
+      document
+         .querySelector(".modal-overlay")
+         .classList
+         .add('active')
    },
    close() {
-
+      document
+         .querySelector(".modal-overlay")
+         .classList
+         .remove('active')
    }
 }
