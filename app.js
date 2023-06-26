@@ -12,13 +12,13 @@ const transactions = [
    {
       id: 1,
       description: 'Luz',
-      amount: -50000,
+      amount: -30000,
       date: ''
    },
    {
       id: 2,
       description: 'Criação website',
-      amount: 5000000,
+      amount: 600000,
       date: ''
    },
    {
@@ -31,14 +31,34 @@ const transactions = [
 
 
 const Transaction = {
+   all: transactions,
+   add(transaction) {
+      transaction.all.push(transaction)
+      App.reload()
+   },
+
    incomes() {
-
+      let income = 0;
+      Transaction.all.forEach(transaction => {
+         if (transaction.amount > 0) {
+            income += transaction.amount
+         }
+      })
+      return income
    },
+
    expenses() {
-
+      let expense = 0;
+      Transaction.all.forEach(transaction => {
+         if (transaction.amount < 0) {
+            expense += transaction.amount
+         }
+      })
+      return expense
    },
-   total() {
 
+   total() {
+      return Transaction.incomes() + Transaction.expenses()
    }
 }
 
@@ -59,7 +79,7 @@ const DOM = {
 
       const html = `
       <td class="description">${transaction.description}</td>
-      <td class="${CSSclass}">${transaction.amount}</td>
+      <td class="${CSSclass}">${amount}</td>
       <td class="date">${transaction.date}</td>
       <td>
          <img src="./assets/minus.svg" alt="Remover transação">
@@ -67,6 +87,17 @@ const DOM = {
       `
 
       return html
+   },
+   updateBalance() {
+      document
+         .querySelector('#incomeDisplay')
+         .innerHTML = Utils.formatCurrency(Transaction.incomes())
+      document
+         .querySelector('#expenseDisplay')
+         .innerHTML = Utils.formatCurrency(Transaction.expenses())
+      document
+         .querySelector('#totalDisplay')
+         .innerHTML = Utils.formatCurrency(Transaction.total())
    }
 }
 
@@ -74,10 +105,43 @@ const DOM = {
 const Utils = {
    formatCurrency(value) {
       const signal = Number(value) < 0 ? "-" : ""
+
+      value = String(value).replace(/\D/g, "")
+      value = Number(value) / 100
+      value = value.toLocaleString("pt-br", {
+         style: "currency",
+         currency: "BRL"
+      })
+
+
+      return signal + value
    }
 }
 
 
-transactions.forEach(transaction => {
-   DOM.addTransaction(transaction)
-})
+const App = {
+   init() {
+      Transaction.all.forEach(transaction => {
+         DOM.addTransaction(transaction)
+      })
+
+
+      DOM.updateBalance()
+
+
+      Transaction.add({
+         id: 39,
+         description: 'Alo',
+         amount: 2000,
+         date: '23/02/2021'
+      })
+   },
+   reload() {
+      App.init()
+   }
+}
+
+
+App.init(){
+
+}
