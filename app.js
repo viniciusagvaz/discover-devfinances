@@ -12,3 +12,5 @@ const Modal = {
          .remove('active')
    }
 }
+
+funcionou
