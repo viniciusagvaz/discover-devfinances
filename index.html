@@ -26,7 +26,7 @@
                <img src="./assets/income.svg" alt="Imagem de entradas">
 
             </h3>
-            <p id="incomeDisplay"></p>
+            <p id="incomeDisplay">R$0,00</p>
          </div>
 
          <div class="card">
@@ -36,7 +36,7 @@
                </span>
                <img src="./assets/expense.svg" alt="Imagem de saídas">
             </h3>
-            <p id="expenseDisplay"></p>
+            <p id="expenseDisplay">R$0,00</p>
          </div>
 
          <div class="card total">
@@ -46,7 +46,7 @@
                </span>
                <img src="./assets/total.svg" alt="Imagem de saídas">
             </h3>
-            <p id="totalDisplay"></p>
+            <p id="totalDisplay">R$0,00</p>
          </div>
       </section>
 
@@ -55,8 +55,6 @@
          <a href="#" onclick="Modal.modalToggle()" class="button new">+ Nova Transação</a>
 
          <table id="data-table">
-
-
             <thead>
                <tr>
                   <th>Descrição</th>
@@ -77,10 +75,10 @@
       <div class="modal">
          <div id="form">
             <h2>Nova Transação</h2>
-            <form action="">
+            <form action="" onsubmit="Form.submit(event)">
                <div class="input-group">
                   <label class="sr-only" for="description">Descrição</label>
-                  <input type="text" id="description" name="description" placeholder="Descrição" />
+                  <input type="text" id="description" name="description" autocomplete="off" placeholder="Descrição" />
                </div>
 
                <div class="input-group">
@@ -105,7 +103,7 @@
    </div>
 
    <footer>
-      <p>dev.finance$</p>
+      <p>Vinícius Vaz</p>
    </footer>
 
 
